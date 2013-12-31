@@ -1,0 +1,130 @@
+#!/usr/bin/env bash
+
+DEBUG=0
+README=1
+CONTRIBUTING=1
+LICENSE=1
+BOOTSTRAP=1
+TEST=1
+FIX=0
+
+cmd(){ echo `basename $0`; }
+
+# Help command output
+usage(){
+echo "\
+`cmd` [OPTION...]
+
+Checks a project for common sources of contributor friction
+
+-r, --readme; Check for existence of README
+-c, --contributing; Check for contributing guidelines
+-l, --license; Check for a project license
+-b, --bootstrap; Check for a bootstrap script
+-t, --test; Check for a test script
+-f, --fix; Make suggested changes when able
+-v, --verbose; Verbose output
+--no-readme; Skip README check
+--no-contributing; Skip contributing guide check
+--no-license; Skip license check
+--no-bootstrap; Skip bootstrap script check
+--no-test; Skip test script check
+" | column -t -s ";"
+}
+
+# Error message
+error(){
+    echo "`cmd`: invalid option -- '$1'";
+    echo "Try '`cmd` -h' for more information.";
+    exit 1;
+}
+
+readme(){
+    if [ $README -eq 1 ]; then
+      echo "Checking for README..."
+
+      if [ $FIX -eq 1 ]; then
+        echo "Adding README"
+      fi
+    fi
+}
+
+contributing(){
+    if [ $CONTRIBUTING -eq 1 ]; then
+      echo "Checking for contributing guide..."
+
+      if [ $FIX -eq 1 ]; then
+        echo "Adding CONTRIBUTING"
+      fi
+    fi
+}
+
+license(){
+    if [ $LICENSE -eq 1 ]; then
+      echo "Checking for license..."
+
+      if [ $FIX -eq 1 ]; then
+        echo "Adding LICENSE"
+      fi
+    fi
+}
+
+bootstrap(){
+    if [ $BOOTSTRAP -eq 1 ]; then
+      echo "Checking for boostrap script..."
+
+      if [ $FIX -eq 1 ]; then
+        echo "Adding boostrap script"
+      fi
+    fi
+}
+
+test_script(){
+    if [ $TEST -eq 1 ]; then
+      echo "Checking for test script..."
+
+      if [ $FIX -eq 1 ]; then
+        echo "Adding test script"
+      fi
+    fi
+}
+
+
+opts="hdrclbtf:"
+for pass in 1 2; do
+    while [ -n "$1" ]; do
+        case $1 in
+            --) shift; break;;
+            -*) case $1 in
+                -h|--help)             usage; exit 1;;
+                -d|--debug)            DEBUG=1;;
+                -r|--readme)           README=1;;
+                -c|--contributing)     CONTRIBUTING=1;;
+                -l|--license)          LICENSE=1;;
+                -b|--bootstrap)        BOOTSTRAP=1;;
+                -t|--test)             TEST=1;;
+                -f|--fix)              FIX=1;;
+                --no-readme)           README=0;;
+                --no-contributing)     CONTRIBUTING=0;;
+                --no-license)          LICENSE=0;;
+                --no-bootstrap)        BOOTSTRAP=0;;
+                --no-test)             TEST=0;;
+                --*)                 error $1;;
+                -*)                  if [ $pass -eq 1 ]; then ARGS="$ARGS $1";
+                                     else error $1; fi;;
+                esac;;
+            *)  if [ $pass -eq 1 ]; then ARGS="$ARGS $1";
+                else error $1; fi;;
+        esac
+        shift
+    done
+    if [ $pass -eq 1 ]; then ARGS=`getopt $opts $ARGS`
+        if [ $? != 0 ]; then usage; exit 2; fi; set -- $ARGS
+    fi
+done
+
+readme
+contributing
+license
+bootstrap
+test_script
