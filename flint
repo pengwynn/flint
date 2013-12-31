@@ -71,10 +71,10 @@ license(){
 
 bootstrap(){
     if [ $BOOTSTRAP -eq 1 ]; then
-      echo "Checking for boostrap script..."
+      echo "Checking for bootstrap script..."
 
       if [ $FIX -eq 1 ]; then
-        echo "Adding boostrap script"
+        echo "Adding bootstrap script"
       fi
     fi
 }
@@ -90,7 +90,6 @@ test_script(){
 }
 
 
-opts="hdrclbtf:"
 for pass in 1 2; do
     while [ -n "$1" ]; do
         case $1 in
