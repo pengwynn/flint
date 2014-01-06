@@ -21,7 +21,6 @@ Checks a project for common sources of contributor friction
 -l, --license; Check for a project license
 -b, --bootstrap; Check for a bootstrap script
 -t, --test; Check for a test script
--v, --verbose; Verbose output
 --no-readme; Skip README check
 --no-contributing; Skip contributing guide check
 --no-license; Skip license check
