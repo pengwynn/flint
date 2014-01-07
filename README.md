@@ -81,3 +81,4 @@ Copyright 2014 [Wynn Netherland][pengwynn].
 [contributing]: https://github.com/blog/1184-contributing-guidelines
 [octokit contrib]: https://github.com/octokit/octokit.rb/blob/master/CONTRIBUTING.md
 [choose]: http://choosealicense.com/
+[RDD]: http://tom.preston-werner.com/2010/08/23/readme-driven-development.html
