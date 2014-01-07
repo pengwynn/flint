@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # [r5]: roundup.5.html
 # [r1t]: roundup-1-test.sh.html
 # [r5t]: roundup-5-test.sh.html
