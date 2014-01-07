@@ -23,6 +23,24 @@ Checks a project for common sources of contributor friction
 --no-test                                                     Skip test script check
 ```
 
+Here's the output for a blank folder to show the full gamut of suggestions:
+
+```sh
+~/projects/dream
+❯ flint
+[ERROR] README not found
+[FIXME] Every project begins with a README. http://bit.ly/1dqUYQF
+[ERROR] License file not found
+[FIXME] Add a license to protect yourself and your users. http://choosealicense.com/
+[WARNING] Contributing guide not found
+[FIXME] Add a CONTRIBUTING guide for potential contributors. http://git.io/z-TiGg
+[WARNING] Bootstrap script not found
+[FIXME] A bootstrap script makes setup a snap. http://bit.ly/JZjVL6
+[CRITICAL] Some critical problems found. Please fix right away!
+```
+I also run this in my older projects which were created by either lazy
+me or by younger, less wise me.
+
 ### Philosophy
 
 If you want people to use and contribute to your project, you need to start by
