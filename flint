@@ -83,7 +83,7 @@ license(){
 
 bootstrap(){
     if [ $BOOTSTRAP -eq 1 ]; then
-      if [[ ! -d "script" || -z $(find . -iname 'script/bootstrap*') ]]; then
+      if [[ -z $(find . -iname 'bootstrap*') ]]; then
         warning "Bootstrap script not found"
         log "FIXME" "A bootstrap script makes setup a snap. http://bit.ly/JZjVL6"
       fi
@@ -92,7 +92,7 @@ bootstrap(){
 
 test_script(){
     if [ $TEST -eq 1 ]; then
-      if [[ ! -d "script" || -z $(find . -iname 'script/test*') ]]; then
+      if [[ -z $(find . -iname 'test*') ]]; then
         warning "Test script not found"
         log "FIXME" "Make it easy to run the test suite regardless of project type. http://bit.ly/JZjVL6"
       fi
