@@ -7,6 +7,10 @@ before(){
   mkdir -p fixtures/ghost
 }
 
+after() {
+  rm -rf fixtures/ghost/
+}
+
 it_exits_nonzero_for_usage(){
   status=$(set +e ; ../flint -h >/dev/null ; echo $?)
   test 1 -eq $status
