@@ -5,6 +5,7 @@ README=1
 CONTRIBUTING=1
 LICENSE=1
 BOOTSTRAP=1
+MAXDEPTH=5
 TEST=1
 
 cmd(){ echo `basename $0`; }
@@ -54,9 +55,13 @@ usage_error() {
     error "`cmd`: invalid option -- '$1'. Try '`cmd` -h' for more information.";
 }
 
+find_asset() {
+    find . -iname "$1" -maxdepth $MAXDEPTH
+}
+
 readme(){
     if [ $README -eq 1 ]; then
-      if [[ -z $(find . -iname 'readme*') ]]; then
+      if [[ -z $(find_asset 'readme*') ]]; then
         error "README not found"
         log "FIXME" "Every project begins with a README. http://bit.ly/1dqUYQF"
       fi
@@ -65,7 +70,7 @@ readme(){
 
 contributing(){
     if [ $CONTRIBUTING -eq 1 ]; then
-      if [[ -z $(find . -iname 'contributing*') ]]; then
+      if [[ -z $(find_asset 'contributing*') ]]; then
         warning "Contributing guide not found"
         log "FIXME" "Add a CONTRIBUTING guide for potential contributors. http://git.io/z-TiGg"
       fi
@@ -74,7 +79,7 @@ contributing(){
 
 license(){
     if [ $LICENSE -eq 1 ]; then
-      if [[ -z $(find . -iname 'license*') ]]; then
+      if [[ -z $(find_asset 'license*') ]]; then
         error "License file not found"
         log "FIXME" "Add a license to protect yourself and your users. http://choosealicense.com/"
       fi
@@ -83,7 +88,7 @@ license(){
 
 bootstrap(){
     if [ $BOOTSTRAP -eq 1 ]; then
-      if [[ -z $(find . -iname 'bootstrap*') ]]; then
+      if [[ -z $(find_asset 'bootstrap*') ]]; then
         warning "Bootstrap script not found"
         log "FIXME" "A bootstrap script makes setup a snap. http://bit.ly/JZjVL6"
       fi
@@ -92,7 +97,7 @@ bootstrap(){
 
 test_script(){
     if [ $TEST -eq 1 ]; then
-      if [[ -z $(find . -iname 'test*') ]]; then
+      if [[ -z $(find_asset 'test*') ]]; then
         warning "Test script not found"
         log "FIXME" "Make it easy to run the test suite regardless of project type. http://bit.ly/JZjVL6"
       fi
