@@ -1,0 +1,5 @@
+#!/bin/sh
+
+script/fmt
+binary="bin/flint"
+go build -o $binary && echo "Built $binary"

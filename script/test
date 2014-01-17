@@ -1,5 +1,3 @@
 #!/bin/sh
 
-set -e
-cd test
-./roundup.sh
+go test -v ./flint_test.go
