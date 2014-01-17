@@ -1,3 +1,6 @@
-language: bash
-script:
-  - bash script/test
+language: go
+go:
+- 1.1.1
+install:
+- script/build
+script: script/test

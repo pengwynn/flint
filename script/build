@@ -1,5 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 
-script/fmt
-binary="bin/flint"
-go build -o $binary && echo "Built $binary"
+script/bootstrap
+GOPATH="`pwd`/.gopack/vendor" \
+  go build -v ./...
