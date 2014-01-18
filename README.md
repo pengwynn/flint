@@ -27,7 +27,7 @@ younger, less wise you.
 
 Passing the `-h` flag will show full usage options:
 
-```sh
+```
 ❯ flint -h
 NAME:
    flint - Check a project for common sources of contributor friction
