@@ -1,6 +1,7 @@
 package flint
 
 import (
+	"fmt"
 	"github.com/bmizerany/assert"
 	"io/ioutil"
 	"os"
@@ -8,25 +9,148 @@ import (
 	"testing"
 )
 
-func TestReportsMissingReadme(t *testing.T) {
-	setup := Setup()
-	defer setup.Teardown()
-
-	lint := &Lint{Path: setup.Path}
-	lint.CheckReadme()
-	assert.Equal(t, len(lint.Errors), 1)
-	msg := "[ERROR] README not found"
-	assert.Equal(t, msg, lint.Errors[0])
+type scenarios struct {
+	path string // fixture path to write
+	n    int    // Lint.Errors count
 }
 
-func TestFindsReadme(t *testing.T) {
-	setup := Setup()
-	setup.WriteFile("README.md", "The README")
-	defer setup.Teardown()
+var readmeTests = []scenarios{
+	{"", 1},
+	{"README", 0},
+	{"README.md", 0},
+	{"README.rst", 0},
+	{"docs/README.rst", 1},
+	{"docs/README.md", 1},
+}
 
-	lint := &Lint{Path: setup.Path}
-	lint.CheckReadme()
-	assert.Equal(t, len(lint.Errors), 0)
+func TestCheckReadme(t *testing.T) {
+	for _, tt := range readmeTests {
+		setup := Setup()
+		defer setup.Teardown()
+
+		if len(tt.path) > 0 {
+			setup.WriteFile(tt.path, "The README")
+		}
+
+		lint := &Lint{Path: setup.Path}
+		lint.CheckReadme()
+
+		msg := fmt.Sprintf("Fixture: %s, Errors: %d", tt.path, tt.n)
+		assert.Equal(t, len(lint.Errors), tt.n, msg)
+		if tt.n > 0 {
+			assert.Equal(t, "[ERROR] README not found", lint.Errors[0])
+		}
+	}
+}
+
+var contributingTests = []scenarios{
+	{"", 1},
+	{"CONTRIBUTING", 0},
+	{"CONTRIBUTING.md", 0},
+	{"CONTRIBUTING.rst", 0},
+	{"docs/CONTRIBUTING.rst", 1},
+	{"docs/CONTRIBUTING.md", 1},
+}
+
+func TestCheckContributing(t *testing.T) {
+	for _, tt := range contributingTests {
+		setup := Setup()
+		defer setup.Teardown()
+
+		if len(tt.path) > 0 {
+			setup.WriteFile(tt.path, "Patches welcome")
+		}
+
+		lint := &Lint{Path: setup.Path}
+		lint.CheckContributing()
+
+		msg := fmt.Sprintf("Fixture: %s, Errors: %d", tt.path, tt.n)
+		assert.Equal(t, len(lint.Errors), tt.n, msg)
+		if tt.n > 0 {
+			assert.Equal(t, "[ERROR] CONTRIBUTING guide not found", lint.Errors[0])
+		}
+	}
+}
+
+var licenseTests = []scenarios{
+	{"", 1},
+	{"LICENSE", 0},
+	{"LICENSE.md", 0},
+	{"LICENSE.rst", 0},
+	{"docs/LICENSE.rst", 1},
+	{"docs/LICENSE.md", 1},
+}
+
+func TestCheckLicense(t *testing.T) {
+	for _, tt := range licenseTests {
+		setup := Setup()
+		defer setup.Teardown()
+
+		if len(tt.path) > 0 {
+			setup.WriteFile(tt.path, "MIT")
+		}
+
+		lint := &Lint{Path: setup.Path}
+		lint.CheckLicense()
+
+		msg := fmt.Sprintf("Fixture: %s, Errors: %d", tt.path, tt.n)
+		assert.Equal(t, len(lint.Errors), tt.n, msg)
+		if tt.n > 0 {
+			assert.Equal(t, "[ERROR] LICENSE not found", lint.Errors[0])
+		}
+	}
+}
+
+var bootstrapScriptTests = []scenarios{
+	{"", 1},
+	{"script/bootstrap", 0},
+	{"util/script/bootstrap", 1},
+}
+
+func TestCheckBootstrapScript(t *testing.T) {
+	for _, tt := range bootstrapScriptTests {
+		setup := Setup()
+		defer setup.Teardown()
+
+		if len(tt.path) > 0 {
+			setup.WriteFile(tt.path, "MIT")
+		}
+
+		lint := &Lint{Path: setup.Path}
+		lint.CheckBootstrap()
+
+		msg := fmt.Sprintf("Fixture: %s, Errors: %d", tt.path, tt.n)
+		assert.Equal(t, len(lint.Errors), tt.n, msg)
+		if tt.n > 0 {
+			assert.Equal(t, "[ERROR] Bootstrap script not found", lint.Errors[0])
+		}
+	}
+}
+
+var testScriptTests = []scenarios{
+	{"", 1},
+	{"script/test", 0},
+	{"util/script/test", 1},
+}
+
+func TestCheckTestScript(t *testing.T) {
+	for _, tt := range testScriptTests {
+		setup := Setup()
+		defer setup.Teardown()
+
+		if len(tt.path) > 0 {
+			setup.WriteFile(tt.path, "MIT")
+		}
+
+		lint := &Lint{Path: setup.Path}
+		lint.CheckTest()
+
+		msg := fmt.Sprintf("Fixture: %s, Errors: %d", tt.path, tt.n)
+		assert.Equal(t, len(lint.Errors), tt.n, msg)
+		if tt.n > 0 {
+			assert.Equal(t, "[ERROR] Test script not found", lint.Errors[0])
+		}
+	}
 }
 
 func check(err error) {

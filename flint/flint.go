@@ -24,7 +24,7 @@ func (l *Lint) CheckReadme() {
 
 func (l *Lint) CheckContributing() {
 	if !l.findFile("CONTRIBUTING*") {
-		l.Errors = append(l.Errors, "[ERROR] CONTRIBUTING not found")
+		l.Errors = append(l.Errors, "[ERROR] CONTRIBUTING guide not found")
 	}
 }
 
