@@ -44,6 +44,7 @@ func (s *SetupResult) Cleanup() {
 func (s *SetupResult) WriteFile(path string, content string) {
 	bytes := []byte(content)
 	dest := filepath.Join(s.Path, path)
+	os.MkdirAll(filepath.Dir(dest), 0777)
 	err := ioutil.WriteFile(dest, bytes, 0777)
 	check(err)
 }
