@@ -15,12 +15,12 @@ type scenarios struct {
 }
 
 var readmeTests = []scenarios{
-	{"", 1},
+	{"", 2},
 	{"README", 0},
 	{"README.md", 0},
 	{"README.rst", 0},
-	{"docs/README.rst", 1},
-	{"docs/README.md", 1},
+	{"docs/README.rst", 2},
+	{"docs/README.md", 2},
 }
 
 func TestCheckReadme(t *testing.T) {
@@ -38,18 +38,19 @@ func TestCheckReadme(t *testing.T) {
 		msg := fmt.Sprintf("Fixture: %s, Errors: %d", tt.path, tt.n)
 		assert.Equal(t, len(lint.Errors), tt.n, msg)
 		if tt.n > 0 {
-			assert.Equal(t, "[ERROR] README not found", lint.Errors[0])
+			assert.Equal(t, "[ERROR] README not found", lint.Errors[0].Message)
+			assert.Equal(t, "[FIXME] Every project begins with a README. http://bit.ly/1dqUYQF", lint.Errors[1].Message)
 		}
 	}
 }
 
 var contributingTests = []scenarios{
-	{"", 1},
+	{"", 2},
 	{"CONTRIBUTING", 0},
 	{"CONTRIBUTING.md", 0},
 	{"CONTRIBUTING.rst", 0},
-	{"docs/CONTRIBUTING.rst", 1},
-	{"docs/CONTRIBUTING.md", 1},
+	{"docs/CONTRIBUTING.rst", 2},
+	{"docs/CONTRIBUTING.md", 2},
 }
 
 func TestCheckContributing(t *testing.T) {
@@ -67,18 +68,19 @@ func TestCheckContributing(t *testing.T) {
 		msg := fmt.Sprintf("Fixture: %s, Errors: %d", tt.path, tt.n)
 		assert.Equal(t, len(lint.Errors), tt.n, msg)
 		if tt.n > 0 {
-			assert.Equal(t, "[ERROR] CONTRIBUTING guide not found", lint.Errors[0])
+			assert.Equal(t, "[ERROR] CONTRIBUTING guide not found", lint.Errors[0].Message)
+			assert.Equal(t, "[FIXME] Add a CONTRIBUTING guide for potential contributors. http://git.io/z-TiGg", lint.Errors[1].Message)
 		}
 	}
 }
 
 var licenseTests = []scenarios{
-	{"", 1},
+	{"", 2},
 	{"LICENSE", 0},
 	{"LICENSE.md", 0},
 	{"LICENSE.rst", 0},
-	{"docs/LICENSE.rst", 1},
-	{"docs/LICENSE.md", 1},
+	{"docs/LICENSE.rst", 2},
+	{"docs/LICENSE.md", 2},
 }
 
 func TestCheckLicense(t *testing.T) {
@@ -96,15 +98,16 @@ func TestCheckLicense(t *testing.T) {
 		msg := fmt.Sprintf("Fixture: %s, Errors: %d", tt.path, tt.n)
 		assert.Equal(t, len(lint.Errors), tt.n, msg)
 		if tt.n > 0 {
-			assert.Equal(t, "[ERROR] LICENSE not found", lint.Errors[0])
+			assert.Equal(t, "[ERROR] LICENSE not found", lint.Errors[0].Message)
+			assert.Equal(t, "[FIXME] Add a license to protect yourself and your users. http://choosealicense.com/", lint.Errors[1].Message)
 		}
 	}
 }
 
 var bootstrapScriptTests = []scenarios{
-	{"", 1},
+	{"", 2},
 	{"script/bootstrap", 0},
-	{"util/script/bootstrap", 1},
+	{"util/script/bootstrap", 2},
 }
 
 func TestCheckBootstrapScript(t *testing.T) {
@@ -122,15 +125,16 @@ func TestCheckBootstrapScript(t *testing.T) {
 		msg := fmt.Sprintf("Fixture: %s, Errors: %d", tt.path, tt.n)
 		assert.Equal(t, len(lint.Errors), tt.n, msg)
 		if tt.n > 0 {
-			assert.Equal(t, "[ERROR] Bootstrap script not found", lint.Errors[0])
+			assert.Equal(t, "[ERROR] Bootstrap script not found", lint.Errors[0].Message)
+			assert.Equal(t, "[FIXME] A bootstrap script makes setup a snap. http://bit.ly/JZjVL6", lint.Errors[1].Message)
 		}
 	}
 }
 
 var testScriptTests = []scenarios{
-	{"", 1},
+	{"", 2},
 	{"script/test", 0},
-	{"util/script/test", 1},
+	{"util/script/test", 2},
 }
 
 func TestCheckTestScript(t *testing.T) {
@@ -148,7 +152,8 @@ func TestCheckTestScript(t *testing.T) {
 		msg := fmt.Sprintf("Fixture: %s, Errors: %d", tt.path, tt.n)
 		assert.Equal(t, len(lint.Errors), tt.n, msg)
 		if tt.n > 0 {
-			assert.Equal(t, "[ERROR] Test script not found", lint.Errors[0])
+			assert.Equal(t, "[ERROR] Test script not found", lint.Errors[0].Message)
+			assert.Equal(t, "[FIXME] Make it easy to run the test suite regardless of project type. http://bit.ly/JZjVL6", lint.Errors[1].Message)
 		}
 	}
 }
