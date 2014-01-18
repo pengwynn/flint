@@ -49,7 +49,13 @@ func main() {
 			for _, element := range linter.Errors {
 				fmt.Println(element.Message)
 			}
-			os.Exit(1)
+			level := linter.Severity()
+			if level > 0 {
+				fmt.Println("[CRITICAL] Some critical problems found. Please fix right away!")
+			}
+			os.Exit(level)
+		} else {
+			fmt.Println("[OK] All is well!")
 		}
 	}
 

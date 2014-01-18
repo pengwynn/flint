@@ -21,6 +21,17 @@ func (l *Lint) findFile(pattern string) bool {
 	return len(matches) > 0
 }
 
+func (l *Lint) Severity() int {
+	severity := 0
+	for _, e := range l.Errors {
+		if e.Level > severity {
+			severity = e.Level
+		}
+	}
+
+	return severity
+}
+
 func (l *Lint) CheckReadme() {
 	if !l.findFile("README*") {
 		l.Errors = append(l.Errors, &lintError{2, "[ERROR] README not found"})

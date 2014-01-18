@@ -158,6 +158,12 @@ func TestCheckTestScript(t *testing.T) {
 	}
 }
 
+func TestSeverity(t *testing.T) {
+	lint := &Lint{}
+	lint.Errors = append(lint.Errors, &lintError{2, "[ERROR] README not found"})
+	assert.Equal(t, 2, lint.Severity())
+}
+
 func check(err error) {
 	if err != nil {
 		panic(err)
