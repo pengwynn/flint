@@ -27,22 +27,29 @@ younger, less wise you.
 
 Passing the `-h` flag will show full usage options:
 
-```sh
-❯ ./flint -h
-flint [OPTION...]
+```
+❯ flint -h
+NAME:
+   flint - Check a project for common sources of contributor friction
 
-Checks a project for common sources of contributor friction
+USAGE:
+   flint [global options] command [command options] [arguments...]
 
--r, --readme                                                  Check for existence of README
--c, --contributing                                            Check for contributing guidelines
--l, --license                                                 Check for a project license
--b, --bootstrap                                               Check for a bootstrap script
--t, --test                                                    Check for a test script
---no-readme                                                   Skip README check
---no-contributing                                             Skip contributing guide check
---no-license                                                  Skip license check
---no-bootstrap                                                Skip bootstrap script check
---no-test                                                     Skip test script check
+VERSION:
+   0.0.2
+
+COMMANDS:
+   help, h	Shows a list of commands or help for one command
+
+GLOBAL OPTIONS:
+   --skip-readme	skip check for README
+   --skip-contributing	skip check for contributing guide
+   --skip-license	skip check for license
+   --skip-bootstrap	skip check for bootstrap script
+   --skip-test		skip check for test script
+   --skip-scripts	skip check for all scripts
+   --version, -v	print the version
+   --help, -h		show help
 ```
 
 ### Philosophy
