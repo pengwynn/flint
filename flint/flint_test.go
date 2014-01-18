@@ -4,6 +4,7 @@ import (
 	"github.com/bmizerany/assert"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"testing"
 )
 
@@ -42,7 +43,8 @@ func (s *SetupResult) Cleanup() {
 
 func (s *SetupResult) WriteFile(path string, content string) {
 	bytes := []byte(content)
-	err := ioutil.WriteFile(s.Path+"/"+path, bytes, 0777)
+	dest := filepath.Join(s.Path, path)
+	err := ioutil.WriteFile(dest, bytes, 0777)
 	check(err)
 }
 
@@ -51,7 +53,8 @@ func (s *SetupResult) Teardown() {
 }
 
 func Setup() *SetupResult {
-	result := &SetupResult{Path: "../tmp/test-project"}
+	fixturePath := filepath.Join("..", "tmp", "test-project")
+	result := &SetupResult{Path: fixturePath}
 	result.Cleanup() // Cleanup after previous failures
 	os.MkdirAll(result.Path, 0777)
 	return result

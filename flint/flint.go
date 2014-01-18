@@ -11,7 +11,8 @@ type Lint struct {
 }
 
 func (l *Lint) findFile(pattern string) bool {
-	matches, _ := filepath.Glob(l.Path + "/" + pattern)
+	search := filepath.Join(l.Path, pattern)
+	matches, _ := filepath.Glob(search)
 	return len(matches) > 0
 }
 
