@@ -1,5 +1,5 @@
 #!/bin/bash
 
 script/bootstrap
-GOPATH="`pwd`/.gopack/vendor" \
-  go build -v -o bin/flint flint.go
+gox -output="build/flint_{{.OS}}_{{.Arch}}" ./...
+echo "Built $(build/flint_darwin_amd64 --version)"
