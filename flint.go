@@ -1,9 +1,9 @@
 package main
 
 import (
-	"./flint"
 	"fmt"
 	"github.com/codegangsta/cli"
+	"github.com/pengwynn/flint/flint"
 	"os"
 )
 
