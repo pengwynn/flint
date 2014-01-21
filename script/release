@@ -5,6 +5,8 @@
 
 set -e
 
+script/test
+
 version="$(script/build | grep 'flint version ' | awk '{print $4}')"
 [ -n "$version" ] || exit 1
 
