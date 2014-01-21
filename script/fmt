@@ -1,4 +1,0 @@
-#!/bin/bash
-
-GOPATH="`pwd`/.gopack/vendor" \
-  go fmt ./...

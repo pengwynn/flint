@@ -1,5 +1,5 @@
 #!/bin/bash
 
-script/fmt
-GOPATH="`pwd`/.gopack/vendor" \
-  go test -v ./...
+script/bootstrap
+go fmt
+go test -v ./...
