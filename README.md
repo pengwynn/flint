@@ -2,6 +2,20 @@
 
 Check your project for common sources of contributor friction.
 
+### Install
+
+If you've got Go installed, you can install flint with Go's command line
+interface:
+
+```
+go get github.com/pengwynn/flint
+```
+
+You can test your installation by running `flint --version` from any folder.
+
+If you don't have Go installed, you can download a [prebuilt binary for your
+platform][releases], optionally renaming it to "flint" for convenience.
+
 ### Usage
 
 Run `flint` from your project root to check for some common ways to improve the
@@ -111,3 +125,4 @@ Copyright 2014 [Wynn Netherland][pengwynn].
 [octokit contrib]: https://github.com/octokit/octokit.rb/blob/master/CONTRIBUTING.md
 [choose]: http://choosealicense.com/
 [RDD]: http://tom.preston-werner.com/2010/08/23/readme-driven-development.html
+[releases]: https://github.com/pengwynn/flint/releases
