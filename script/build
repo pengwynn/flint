@@ -1,5 +1,8 @@
 #!/bin/bash
 
 script/bootstrap
-gox -output="build/flint_{{.OS}}_{{.Arch}}" ./...
-echo "Built $(build/flint_darwin_amd64 --version)"
+gox \
+  -output="build/flint_{{.OS}}_{{.Arch}}" \
+  -os="darwin linux windows" \
+  ./...
+echo "Built $(go run flint.go --version)"
