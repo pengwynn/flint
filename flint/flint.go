@@ -32,37 +32,44 @@ func (l *Lint) Severity() int {
 	return severity
 }
 
-func (l *Lint) CheckReadme() {
-	if !l.findFile("README*") {
-		l.Errors = append(l.Errors, &lintError{2, "[ERROR] README not found"})
-		l.Errors = append(l.Errors, &lintError{0, "[FIXME] Every project begins with a README. http://bit.ly/1dqUYQF"})
+func (l *Lint) Check(file, message, fixme string) {
+	if !l.findFile(file) {
+		l.Errors = append(l.Errors, &lintError{2, message})
+		l.Errors = append(l.Errors, &lintError{0, fixme})
 	}
+}
+
+func (l *Lint) CheckReadme() {
+	l.Check(
+		"README*",
+		"[ERROR] README not found",
+		"[FIXME] Every project begins with a README. http://bit.ly/1dqUYQF")
 }
 
 func (l *Lint) CheckContributing() {
-	if !l.findFile("CONTRIBUTING*") {
-		l.Errors = append(l.Errors, &lintError{2, "[ERROR] CONTRIBUTING guide not found"})
-		l.Errors = append(l.Errors, &lintError{0, "[FIXME] Add a CONTRIBUTING guide for potential contributors. http://git.io/z-TiGg"})
-	}
+	l.Check(
+		"CONTRIBUTING*",
+		"[ERROR] CONTRIBUTING guide not found",
+		"[FIXME] Add a CONTRIBUTING guide for potential contributors. http://git.io/z-TiGg")
 }
 
 func (l *Lint) CheckLicense() {
-	if !l.findFile("LICENSE*") {
-		l.Errors = append(l.Errors, &lintError{2, "[ERROR] LICENSE not found"})
-		l.Errors = append(l.Errors, &lintError{0, "[FIXME] Add a license to protect yourself and your users. http://choosealicense.com/"})
-	}
+	l.Check(
+		"LICENSE*",
+		"[ERROR] LICENSE not found",
+		"[FIXME] Add a license to protect yourself and your users. http://choosealicense.com/")
 }
 
 func (l *Lint) CheckBootstrap() {
-	if !l.findFile("script/bootstrap") {
-		l.Errors = append(l.Errors, &lintError{2, "[ERROR] Bootstrap script not found"})
-		l.Errors = append(l.Errors, &lintError{0, "[FIXME] A bootstrap script makes setup a snap. http://bit.ly/JZjVL6"})
-	}
+	l.Check(
+		"script/bootstrap",
+		"[ERROR] Bootstrap script not found",
+		"[FIXME] A bootstrap script makes setup a snap. http://bit.ly/JZjVL6")
 }
 
 func (l *Lint) CheckTest() {
-	if !l.findFile("script/test") {
-		l.Errors = append(l.Errors, &lintError{2, "[ERROR] Test script not found"})
-		l.Errors = append(l.Errors, &lintError{0, "[FIXME] Make it easy to run the test suite regardless of project type. http://bit.ly/JZjVL6"})
-	}
+	l.Check(
+		"script/test",
+		"[ERROR] Test script not found",
+		"[FIXME] Make it easy to run the test suite regardless of project type. http://bit.ly/JZjVL6")
 }
