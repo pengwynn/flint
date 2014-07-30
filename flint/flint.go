@@ -1,7 +1,9 @@
 package flint
 
 import (
+	"fmt"
 	"path/filepath"
+	"strings"
 )
 
 type lintError struct {
@@ -16,7 +18,17 @@ type Lint struct {
 }
 
 func (l *Lint) findFile(pattern string) bool {
-	search := filepath.Join(l.Path, pattern)
+	caseInsensitive := ""
+	for _, char := range pattern {
+		if char == '*' {
+			caseInsensitive += string(char)
+			break
+		}
+		caseInsensitive += fmt.Sprintf("[%v%v]",
+			strings.ToLower(string(char)),
+			strings.ToUpper(string(char)))
+	}
+	search := filepath.Join(l.Path, caseInsensitive)
 	matches, _ := filepath.Glob(search)
 	return len(matches) > 0
 }
