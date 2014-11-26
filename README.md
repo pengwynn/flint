@@ -27,18 +27,31 @@ show the full gamut of suggestions:
 ❯ flint
 [ERROR] README not found
 [FIXME] Every project begins with a README. http://bit.ly/1dqUYQF
-[ERROR] License file not found
+[ERROR] CONTRIBUTING guide not found
+[FIXME] Add a guide for potential contributors. http://git.io/z-TiGg
+[ERROR] LICENSE not found
 [FIXME] Add a license to protect yourself and your users. http://choosealicense.com/
-[WARNING] Contributing guide not found
-[FIXME] Add a CONTRIBUTING guide for potential contributors. http://git.io/z-TiGg
 [WARNING] Bootstrap script not found
 [FIXME] A bootstrap script makes setup a snap. http://bit.ly/JZjVL6
-[CRITICAL] Some critical problems found. Please fix right away!
+[WARNING] Test script not found
+[FIXME] Make it easy to run the test suite regardless of project type. http://bit.ly/JZjVL6
+[CRITICAL] Some critical problems found.
 ```
 
 You can also run this in older projects which were created by lazy you, or by
 younger, less wise you.
 
+If you want to check a remote GitHub repository, you can now do so without
+cloning:
+
+```sh
+❯ flint --github pengwynn/dotfiles
+[ERROR] CONTRIBUTING guide not found
+[FIXME] Add a guide for potential contributors. http://git.io/z-TiGg
+[WARNING] Test script not found
+[FIXME] Make it easy to run the test suite regardless of project type. http://bit.ly/JZjVL6
+[CRITICAL] Some critical problems found.
+```
 Passing the `-h` flag will show full usage options:
 
 ```
@@ -50,20 +63,23 @@ USAGE:
    flint [global options] command [command options] [arguments...]
 
 VERSION:
-   0.0.2
+   0.0.4
 
 COMMANDS:
-   help, h	Shows a list of commands or help for one command
+   help, h      Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
-   --skip-readme	skip check for README
-   --skip-contributing	skip check for contributing guide
-   --skip-license	skip check for license
-   --skip-bootstrap	skip check for bootstrap script
-   --skip-test		skip check for test script
-   --skip-scripts	skip check for all scripts
-   --version, -v	print the version
-   --help, -h		show help
+   --skip-readme        skip check for README
+   --skip-contributing  skip check for contributing guide
+   --skip-license       skip check for license
+   --skip-bootstrap     skip check for bootstrap script
+   --skip-test-script   skip check for test script
+   --skip-scripts       skip check for all scripts
+   --no-color           skip coloring the terminal output
+   --github, -g         GitHub repository as owner/repo
+   --token, -t          GitHub API access token [$FLINT_TOKEN]
+   --help, -h           show help
+   --version, -v        print the version
 ```
 
 ### Philosophy
