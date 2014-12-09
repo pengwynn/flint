@@ -76,6 +76,12 @@ func (g *GitHubFetcher) ParseFullName(nwo string) (owner, name string, err error
 	return
 }
 
+func NewGitHubFetcher() *GitHubFetcher {
+	client := octokit.NewClient(nil)
+
+	return &GitHubFetcher{&*client}
+}
+
 func NewGitHubFetcherWithToken(token string) *GitHubFetcher {
 	client := octokit.NewClient(&octokit.TokenAuth{AccessToken: token})
 

@@ -2,7 +2,6 @@ package flint
 
 import (
 	"github.com/codegangsta/cli"
-	"github.com/octokit/go-octokit/octokit"
 
 	"fmt"
 	"os"
@@ -98,14 +97,10 @@ func newFlagsFromContext(c *cli.Context) *Flags {
 }
 
 var newGitHubFetcher = func(c *cli.Context) RemoteRepositoryFetcher {
-	var client *octokit.Client
-
 	token := c.String("token")
 	if len(token) > 0 {
-		client = octokit.NewClient(octokit.TokenAuth{AccessToken: token})
+		return NewGitHubFetcherWithToken(token)
 	} else {
-		client = octokit.NewClient(nil)
+		return NewGitHubFetcher()
 	}
-
-	return &GitHubFetcher{client}
 }
