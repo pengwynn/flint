@@ -30,19 +30,24 @@ func (l *Linter) Run(p Project, flags *Flags) (summary *Summary, err error) {
 	summary = &Summary{}
 
 	if flags.RunReadme && !p.CheckReadme() {
-		summary.AppendError(ReadmeNotFound)
+		summary.AppendError(ReadmeNotFoundError)
+		summary.AppendError(ReadmeNotFoundInfo)
 	}
 	if flags.RunContributing && !p.CheckContributing() {
-		summary.AppendError(ContributingNotFound)
+		summary.AppendError(ContributingNotFoundError)
+		summary.AppendError(ContributingNotFoundInfo)
 	}
 	if flags.RunLicense && !p.CheckLicense() {
-		summary.AppendError(LicenseNotFound)
+		summary.AppendError(LicenseNotFoundError)
+		summary.AppendError(LicenseNotFoundInfo)
 	}
 	if flags.RunBootstrap && !p.CheckBootstrap() {
-		summary.AppendError(BootstrapNotFound)
+		summary.AppendError(BootstrapNotFoundError)
+		summary.AppendError(BootstrapNotFoundInfo)
 	}
 	if flags.RunTestScript && !p.CheckTestScript() {
-		summary.AppendError(TestScriptNotFound)
+		summary.AppendError(TestScriptNotFoundError)
+		summary.AppendError(TestScriptNotFoundInfo)
 	}
 
 	return summary, nil

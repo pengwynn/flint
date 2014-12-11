@@ -33,7 +33,7 @@ func TestLinterReportsErrors(t *testing.T) {
 	summary, err := linter.Run(project, flags)
 	assert.Nil(t, err)
 	if assert.NotNil(t, summary) {
-		assert.Equal(t, 5, len(summary.Errors))
+		assert.Equal(t, 10, len(summary.Errors))
 	}
 }
 

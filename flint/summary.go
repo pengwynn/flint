@@ -30,19 +30,18 @@ func (l *Summary) Print(out io.Writer, colored bool) {
 	if len(l.Errors) > 0 {
 		for _, e := range l.Errors {
 			if colored {
-				if e.Level == 0 { // [FIXME]
-					color.White(e.FormattedMessage())
+				if e.Level == 0 { // [INFO]
+					fmt.Fprintln(out, e.Error())
 				}
 				if e.Level == 1 { // [WARNING]
-					color.Yellow(e.FormattedMessage())
+					color.Yellow(e.Error())
 				}
 				if e.Level == 2 { // [ERROR]
-					color.Red(e.FormattedMessage())
+					color.Red(e.Error())
 				}
 			} else {
-				fmt.Fprintln(out, e.FormattedMessage())
+				fmt.Fprintln(out, e.Error())
 			}
-			fmt.Fprintln(out, e.FormattedFixme())
 		}
 		level := l.Severity()
 		if level > 1 {

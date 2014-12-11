@@ -8,21 +8,24 @@ import (
 
 func TestSeverity(t *testing.T) {
 	list := &Summary{}
-	list.Errors = append(list.Errors, &LintError{2, "README not found", "Add a README, yo"})
+	list.Errors = append(list.Errors, &LintError{2, "README not found"})
+	list.Errors = append(list.Errors, &LintError{0, "Add a README, yo"})
 	assert.Equal(t, 2, list.Severity())
 }
 
 func TestPrintNoColor(t *testing.T) {
 	list := &Summary{}
-	list.Errors = append(list.Errors, &LintError{2, "README not found", "Add a README, yo"})
-	list.Errors = append(list.Errors, &LintError{1, "Bootstrap not found", "Add a bootstrap, yo"})
+	list.Errors = append(list.Errors, &LintError{2, "README not found"})
+	list.Errors = append(list.Errors, &LintError{0, "Add a README, yo"})
+	list.Errors = append(list.Errors, &LintError{1, "Bootstrap not found"})
+	list.Errors = append(list.Errors, &LintError{0, "Add a bootstrap, yo"})
 	buf := &bytes.Buffer{}
 
 	list.Print(buf, false)
 	expected := `[ERROR] README not found
-[FIXME] Add a README, yo
+[INFO] Add a README, yo
 [WARNING] Bootstrap not found
-[FIXME] Add a bootstrap, yo
+[INFO] Add a bootstrap, yo
 [CRITICAL] Some critical problems found.
 `
 
@@ -31,15 +34,17 @@ func TestPrintNoColor(t *testing.T) {
 
 func TestPrintColor(t *testing.T) {
 	list := &Summary{}
-	list.Errors = append(list.Errors, &LintError{2, "README not found", "Add a README, yo"})
-	list.Errors = append(list.Errors, &LintError{1, "Bootstrap not found", "Add a bootstrap, yo"})
+	list.Errors = append(list.Errors, &LintError{2, "README not found"})
+	list.Errors = append(list.Errors, &LintError{0, "Add a README, yo"})
+	list.Errors = append(list.Errors, &LintError{1, "Bootstrap not found"})
+	list.Errors = append(list.Errors, &LintError{0, "Add a bootstrap, yo"})
 	buf := &bytes.Buffer{}
 
 	list.Print(buf, true)
 	expected := "\x1b[31m[ERROR] README not found\n\x1b[0m"
-	expected += "[FIXME] Add a README, yo\n"
+	expected += "[INFO] Add a README, yo\n"
 	expected += "\x1b[33m[WARNING] Bootstrap not found\n\x1b[0m"
-	expected += "[FIXME] Add a bootstrap, yo\n"
+	expected += "[INFO] Add a bootstrap, yo\n"
 	expected += "\x1b[31m[CRITICAL] Some critical problems found.\n\x1b[0m"
 
 	assert.Equal(t, expected, buf.String())
