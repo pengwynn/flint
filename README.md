@@ -26,15 +26,15 @@ show the full gamut of suggestions:
 ~/projects/dream
 ❯ flint
 [ERROR] README not found
-[FIXME] Every project begins with a README. http://bit.ly/1dqUYQF
+[INFO] Every project begins with a README. http://bit.ly/1dqUYQF
 [ERROR] CONTRIBUTING guide not found
-[FIXME] Add a guide for potential contributors. http://git.io/z-TiGg
+[INFO] Add a guide for potential contributors. http://git.io/z-TiGg
 [ERROR] LICENSE not found
-[FIXME] Add a license to protect yourself and your users. http://choosealicense.com/
+[INFO] Add a license to protect yourself and your users. http://choosealicense.com/
 [WARNING] Bootstrap script not found
-[FIXME] A bootstrap script makes setup a snap. http://bit.ly/JZjVL6
+[INFO] A bootstrap script makes setup a snap. http://bit.ly/JZjVL6
 [WARNING] Test script not found
-[FIXME] Make it easy to run the test suite regardless of project type. http://bit.ly/JZjVL6
+[INFO] Make it easy to run the test suite regardless of project type. http://bit.ly/JZjVL6
 [CRITICAL] Some critical problems found.
 ```
 
@@ -47,9 +47,9 @@ cloning:
 ```sh
 ❯ flint --github pengwynn/dotfiles
 [ERROR] CONTRIBUTING guide not found
-[FIXME] Add a guide for potential contributors. http://git.io/z-TiGg
+[INFO] Add a guide for potential contributors. http://git.io/z-TiGg
 [WARNING] Test script not found
-[FIXME] Make it easy to run the test suite regardless of project type. http://bit.ly/JZjVL6
+[INFO] Make it easy to run the test suite regardless of project type. http://bit.ly/JZjVL6
 [CRITICAL] Some critical problems found.
 ```
 Passing the `-h` flag will show full usage options:
