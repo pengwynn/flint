@@ -52,7 +52,7 @@ var run = func(c *cli.Context) {
 		return
 	}
 	if summary != nil {
-		summary.Print(os.Stdout, !c.Bool("no-color"))
+		summary.Print(os.Stderr, !c.Bool("no-color"))
 		os.Exit(summary.Severity())
 	}
 }
