@@ -26,38 +26,35 @@ func (list *Summary) Severity() int {
 }
 
 func (l *Summary) Print(out io.Writer, colored bool) {
+	info := func(a ...interface{}) { fmt.Fprintln(out, a...) }
+	warn := info
+	fail := info
+	success := info
+
 	color.Output = out
-	if len(l.Errors) > 0 {
-		for _, e := range l.Errors {
-			if colored {
-				if e.Level == 0 { // [INFO]
-					fmt.Fprintln(out, e.Error())
-				}
-				if e.Level == 1 { // [WARNING]
-					color.Yellow(e.Error())
-				}
-				if e.Level == 2 { // [ERROR]
-					color.Red(e.Error())
-				}
-			} else {
-				fmt.Fprintln(out, e.Error())
-			}
-		}
-		level := l.Severity()
-		if level > 1 {
-			message := "[CRITICAL] Some critical problems found."
-			if colored {
-				color.Red(message)
-			} else {
-				fmt.Fprintln(out, message)
-			}
-		}
-	} else {
+	if colored {
+		warn = color.New(color.FgYellow).PrintlnFunc()
+		fail = color.New(color.FgRed).PrintlnFunc()
+		success = color.New(color.FgGreen).PrintlnFunc()
+	}
+	if len(l.Errors) == 0 {
 		message := "[OK] All is well!"
-		if colored {
-			color.Green(message)
-		} else {
-			fmt.Fprintln(out, message)
+		success(message)
+		return
+	}
+
+	for _, e := range l.Errors {
+		switch e.Level {
+		case 0:
+			info(e.Error())
+		case 1:
+			warn(e.Error())
+		case 2:
+			fail(e.Error())
 		}
+	}
+	if l.Severity() > 1 {
+		message := "[CRITICAL] Some critical problems found."
+		fail(message)
 	}
 }
