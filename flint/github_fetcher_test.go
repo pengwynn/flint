@@ -115,6 +115,23 @@ func TestGitHubFetcher_FetchTree(t *testing.T) {
 	assert.Nil(t, err)
 }
 
+func TestGitHubFetcher_FetchReleases(t *testing.T) {
+	setupGitHubFetcherTest()
+	defer tearDownGitHubFetcherTest()
+
+	mux.HandleFunc("/repos/octokit/octokit.rb/releases", func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "GET")
+		respondWithJSON(w, loadFixture("octokit.rb_releases.json"))
+	})
+
+	fetcher := &GitHubFetcher{&*client}
+	paths, err := fetcher.FetchReleases("octokit/octokit.rb")
+	assert.Contains(t, paths, "v3.2.0")
+	assert.Contains(t, paths, "2.0.0 Preview")
+	assert.NotContains(t, paths, "") // ignore tag-only releases
+	assert.Nil(t, err)
+}
+
 func TestGitHubFetcher_ParseFullName(t *testing.T) {
 	fetcher := &GitHubFetcher{}
 

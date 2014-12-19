@@ -90,6 +90,16 @@ func TestRemoteProjectCheckChangelog(t *testing.T) {
 	err = project.Fetch(fetcher)
 	assert.Nil(t, err)
 	assert.False(t, project.CheckChangelog())
+
+	project = &RemoteProject{FullName: "projects/has-releases"}
+	err = project.Fetch(fetcher)
+	assert.Nil(t, err)
+	assert.True(t, project.CheckChangelog())
+
+	project = &RemoteProject{FullName: "projects/no-changelog"}
+	err = project.Fetch(fetcher)
+	assert.Nil(t, err)
+	assert.False(t, project.CheckChangelog())
 }
 
 func TestRemoteProjectCheckBootstrap(t *testing.T) {
@@ -176,6 +186,23 @@ func (f *FakeProjectFetcher) FetchTree(nwo string) (paths []string, err error) {
 			"script/bootstrap",
 			"script/test",
 		}
+	case "projects/has-releases":
+		paths = []string{}
 	}
+
 	return paths, nil
+}
+
+func (f *FakeProjectFetcher) FetchReleases(nwo string) (releases []string, err error) {
+	switch nwo {
+	case "projects/has-releases":
+		releases = []string{
+			"v0.0.1",
+			"v1.0.0",
+		}
+	case "projects/no-changelog":
+		releases = []string{}
+	}
+
+	return releases, nil
 }

@@ -13,11 +13,13 @@ type Repository struct {
 type RemoteRepositoryFetcher interface {
 	FetchRepository(string) (*Repository, error)
 	FetchTree(string) ([]string, error)
+	FetchReleases(string) ([]string, error)
 }
 
 type RemoteProject struct {
 	FullName string
 	paths    []string
+	releases []string
 	Repository
 }
 
@@ -31,7 +33,6 @@ func (r *RemoteProject) Fetch(fetcher RemoteRepositoryFetcher) error {
 	if err != nil {
 		return err
 	}
-
 	r.Repository.Description = info.Description
 	r.Homepage = info.Homepage
 
@@ -39,10 +40,15 @@ func (r *RemoteProject) Fetch(fetcher RemoteRepositoryFetcher) error {
 
 	if err != nil {
 		return err
-
 	}
-
 	r.paths = paths
+
+	releases, err := fetcher.FetchReleases(r.FullName)
+
+	if err != nil {
+		return err
+	}
+	r.releases = releases
 
 	return nil
 }
@@ -69,7 +75,7 @@ func (l *RemoteProject) CheckLicense() bool {
 }
 
 func (l *RemoteProject) CheckChangelog() bool {
-	return l.searchPath(regexp.MustCompile(`CHANGELOG`))
+	return l.searchPath(regexp.MustCompile(`CHANGELOG`)) || len(l.releases) > 1
 }
 
 func (l *RemoteProject) CheckBootstrap() bool {
