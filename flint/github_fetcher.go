@@ -82,8 +82,8 @@ func (g *GitHubFetcher) FetchReleases(nwo string) (releases []string, err error)
 	}
 
 	for _, release := range items {
-		if name := release.Name; len(name) > 0 {
-			releases = append(releases, name)
+		if body := release.Body; len(body) > 0 {
+			releases = append(releases, release.TagName)
 		}
 	}
 

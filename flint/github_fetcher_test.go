@@ -127,7 +127,7 @@ func TestGitHubFetcher_FetchReleases(t *testing.T) {
 	fetcher := &GitHubFetcher{&*client}
 	paths, err := fetcher.FetchReleases("octokit/octokit.rb")
 	assert.Contains(t, paths, "v3.2.0")
-	assert.Contains(t, paths, "2.0.0 Preview")
+	assert.Contains(t, paths, "v2.0.0.pre")
 	assert.NotContains(t, paths, "") // ignore tag-only releases
 	assert.Nil(t, err)
 }
