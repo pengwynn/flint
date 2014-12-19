@@ -68,6 +68,10 @@ func (l *RemoteProject) CheckLicense() bool {
 	return l.searchPath(regexp.MustCompile(`LICENSE|COPYING`))
 }
 
+func (l *RemoteProject) CheckChangelog() bool {
+	return l.searchPath(regexp.MustCompile(`CHANGELOG`))
+}
+
 func (l *RemoteProject) CheckBootstrap() bool {
 	return l.searchPath(regexp.MustCompile(`script/bootstrap`))
 }

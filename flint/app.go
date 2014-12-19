@@ -42,6 +42,10 @@ func NewApp() *cli.App {
 			Name:  "no-color",
 			Usage: "skip coloring the terminal output",
 		},
+		cli.BoolFlag{
+			Name:  "skip-changelog",
+			Usage: "skip check for changelog",
+		},
 		cli.StringFlag{
 			Name:  "github, g",
 			Value: "",
@@ -119,6 +123,7 @@ func newFlagsFromContext(c *cli.Context) *Flags {
 		RunLicense:      !c.Bool("skip-license"),
 		RunBootstrap:    runBootstrap,
 		RunTestScript:   runTestScript,
+		RunChangelog:    !c.Bool("skip-changelog"),
 	}
 	return flags
 }

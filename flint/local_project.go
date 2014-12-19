@@ -26,6 +26,10 @@ func (l *LocalProject) CheckLicense() bool {
 	return l.searchPath("LICENSE*") || l.searchPath("COPYING*")
 }
 
+func (l *LocalProject) CheckChangelog() bool {
+	return l.searchPath("CHANGELOG*")
+}
+
 func (l *LocalProject) CheckBootstrap() bool {
 	return l.searchPath("script/bootstrap")
 }

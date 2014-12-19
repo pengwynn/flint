@@ -76,6 +76,20 @@ func TestRemoteProjectCheckCopying(t *testing.T) {
 	err := project.Fetch(fetcher)
 	assert.Nil(t, err)
 	assert.True(t, project.CheckLicense())
+
+}
+
+func TestRemoteProjectCheckChangelog(t *testing.T) {
+	project := &RemoteProject{FullName: "octokit/octokit.rb"}
+	fetcher := &FakeProjectFetcher{}
+	err := project.Fetch(fetcher)
+	assert.Nil(t, err)
+	assert.True(t, project.CheckChangelog())
+
+	project = &RemoteProject{FullName: "projects/lowercase-names"}
+	err = project.Fetch(fetcher)
+	assert.Nil(t, err)
+	assert.False(t, project.CheckChangelog())
 }
 
 func TestRemoteProjectCheckBootstrap(t *testing.T) {
@@ -135,6 +149,7 @@ func (f *FakeProjectFetcher) FetchTree(nwo string) (paths []string, err error) {
 	case "octokit/octokit.rb":
 		paths = []string{
 			"CONTRIBUTING.md",
+			"CHANGELOG.md",
 			"LICENSE.md",
 			"README.md",
 			"lib",
@@ -146,6 +161,7 @@ func (f *FakeProjectFetcher) FetchTree(nwo string) (paths []string, err error) {
 		paths = []string{
 			"contributing",
 			"license",
+			"changelog",
 			"readme",
 			"script/bootstrap",
 			"script/test",

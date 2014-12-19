@@ -51,6 +51,16 @@ var LicenseNotFoundInfo = &LintError{
 	"Add a license to protect yourself and your users. http://choosealicense.com/",
 }
 
+var ChangelogNotFoundError = &LintError{
+	1,
+	"CHANGELOG not found",
+}
+
+var ChangelogNotFoundInfo = &LintError{
+	0,
+	"Add a changelog to show what's new or improved with each release. http://keepachangelog.com/",
+}
+
 var BootstrapNotFoundError = &LintError{
 	1,
 	"Bootstrap script not found",
