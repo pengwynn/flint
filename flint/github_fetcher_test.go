@@ -9,7 +9,7 @@ import (
 	"net/http/httptest"
 	"net/url"
 	"os"
-	"path"
+	"path/filepath"
 	"testing"
 )
 
@@ -214,7 +214,7 @@ func testMethod(t *testing.T, r *http.Request, want string) {
 
 func loadFixture(f string) string {
 	pwd, _ := os.Getwd()
-	p := path.Join(pwd, "..", "fixtures", f)
+	p := filepath.Join(pwd, "..", "fixtures", f)
 	c, _ := ioutil.ReadFile(p)
 	return string(c)
 }
