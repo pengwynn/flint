@@ -5,6 +5,7 @@ import (
 
 	"fmt"
 	"os"
+	"runtime"
 )
 
 func NewApp() *cli.App {
@@ -52,7 +53,12 @@ var run = func(c *cli.Context) {
 		return
 	}
 	if summary != nil {
-		summary.Print(os.Stderr, !c.Bool("no-color"))
+		color := !c.Bool("no-color")
+		// Windows doesn't support colors
+		if runtime.GOOS == "windows" {
+			color = false
+		}
+		summary.Print(os.Stderr, color)
 		os.Exit(summary.Severity())
 	}
 }
