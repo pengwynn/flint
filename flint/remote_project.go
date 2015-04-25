@@ -57,15 +57,27 @@ func (l *RemoteProject) searchPath(re *regexp.Regexp) bool {
 }
 
 func (l *RemoteProject) CheckReadme() bool {
-	return l.searchPath(regexp.MustCompile(`README`))
+	return l.searchPath(regexp.MustCompile(`(?i)README`))
+}
+
+func (l *RemoteProject) CheckLowercaseReadme() bool {
+	return l.searchPath(regexp.MustCompile(`[Rr]eadme`))
 }
 
 func (l *RemoteProject) CheckContributing() bool {
-	return l.searchPath(regexp.MustCompile(`CONTRIBUTING`))
+	return l.searchPath(regexp.MustCompile(`(?i)CONTRIBUTING`))
+}
+
+func (l *RemoteProject) CheckLowercaseContributing() bool {
+	return l.searchPath(regexp.MustCompile(`[Cc]ontributing`))
 }
 
 func (l *RemoteProject) CheckLicense() bool {
-	return l.searchPath(regexp.MustCompile(`LICENSE`))
+	return l.searchPath(regexp.MustCompile(`(?i)LICENSE`))
+}
+
+func (l *RemoteProject) CheckLowercaseLicense() bool {
+	return l.searchPath(regexp.MustCompile(`[Ll]icense`))
 }
 
 func (l *RemoteProject) CheckBootstrap() bool {
