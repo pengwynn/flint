@@ -20,11 +20,7 @@ func (g *GitHubFetcher) FetchRepository(nwo string) (repo *Repository, err error
 	if err != nil {
 		return nil, err
 	}
-	url, err := octokit.RepositoryURL.Expand(octokit.M{"owner": owner, "repo": name})
-	if err != nil {
-		return nil, err
-	}
-	info, result := g.Repositories(url).One()
+	info, result := g.Repositories().One(nil, octokit.M{"owner": owner, "repo": name})
 	if result.HasError() {
 		return nil, result.Err
 	}
