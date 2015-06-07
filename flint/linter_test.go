@@ -45,11 +45,23 @@ func (p *FakeProject) CheckReadme() bool {
 	return p.RunReadme
 }
 
+func (p *FakeProject) CheckLowercaseReadme() bool {
+	return p.RunReadme
+}
+
 func (p *FakeProject) CheckContributing() bool {
 	return p.RunContributing
 }
 
+func (p *FakeProject) CheckLowercaseContributing() bool {
+	return p.RunContributing
+}
+
 func (p *FakeProject) CheckLicense() bool {
+	return p.RunLicense
+}
+
+func (p *FakeProject) CheckLowercaseLicense() bool {
 	return p.RunLicense
 }
 

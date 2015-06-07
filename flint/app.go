@@ -12,7 +12,7 @@ func NewApp() *cli.App {
 	app := cli.NewApp()
 	app.Name = "flint"
 	app.Usage = "Check a project for common sources of contributor friction"
-	app.Version = "0.0.4"
+	app.Version = "0.0.4.1"
 	app.Flags = []cli.Flag{
 		cli.BoolFlag{"skip-readme", "skip check for README", ""},
 		cli.BoolFlag{"skip-contributing", "skip check for contributing guide", ""},

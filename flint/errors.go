@@ -31,19 +31,33 @@ var ReadmeNotFoundInfo = &LintError{
 	"Every project begins with a README. http://bit.ly/1dqUYQF",
 }
 
+var ReadmeLowercaseInfo = &LintError{
+	0,
+	"README file name should be in UPPERCASE for sorting.",
+}
+
 var ContributingNotFoundError = &LintError{
 	2,
 	"CONTRIBUTING guide not found",
 }
-
 var ContributingNotFoundInfo = &LintError{
 	0,
 	"Add a guide for potential contributors. http://git.io/z-TiGg",
 }
 
+var ContributingLowercaseInfo = &LintError{
+	0,
+	"CONTRIBUTING guide file name should be in UPPERCASE for sorting.",
+}
+
 var LicenseNotFoundError = &LintError{
 	2,
 	"LICENSE not found",
+}
+
+var LicenseLowercaseInfo = &LintError{
+	0,
+	"LICENSE file name should be in UPPERCASE for sorting.",
 }
 
 var LicenseNotFoundInfo = &LintError{

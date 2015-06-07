@@ -41,7 +41,20 @@ func TestRemoteProjectCheckReadme(t *testing.T) {
 	project = &RemoteProject{FullName: "projects/lowercase-names"}
 	err = project.Fetch(fetcher)
 	assert.Nil(t, err)
-	assert.False(t, project.CheckReadme())
+	assert.True(t, project.CheckReadme())
+}
+
+func TestRemoteProjectCheckLowercaseReadme(t *testing.T) {
+	project := &RemoteProject{FullName: "octokit/octokit.rb"}
+	fetcher := &FakeProjectFetcher{}
+	err := project.Fetch(fetcher)
+	assert.Nil(t, err)
+	assert.True(t, project.CheckReadme())
+
+	project = &RemoteProject{FullName: "projects/lowercase-names"}
+	err = project.Fetch(fetcher)
+	assert.Nil(t, err)
+	assert.True(t, project.CheckLowercaseReadme())
 }
 
 func TestRemoteProjectCheckContributing(t *testing.T) {
@@ -54,7 +67,20 @@ func TestRemoteProjectCheckContributing(t *testing.T) {
 	project = &RemoteProject{FullName: "projects/lowercase-names"}
 	err = project.Fetch(fetcher)
 	assert.Nil(t, err)
-	assert.False(t, project.CheckContributing())
+	assert.True(t, project.CheckContributing())
+}
+
+func TestRemoteProjectCheckLowercaseContributing(t *testing.T) {
+	project := &RemoteProject{FullName: "octokit/octokit.rb"}
+	fetcher := &FakeProjectFetcher{}
+	err := project.Fetch(fetcher)
+	assert.Nil(t, err)
+	assert.True(t, project.CheckContributing())
+
+	project = &RemoteProject{FullName: "projects/lowercase-names"}
+	err = project.Fetch(fetcher)
+	assert.Nil(t, err)
+	assert.True(t, project.CheckLowercaseContributing())
 }
 
 func TestRemoteProjectCheckLicense(t *testing.T) {
@@ -67,7 +93,20 @@ func TestRemoteProjectCheckLicense(t *testing.T) {
 	project = &RemoteProject{FullName: "projects/lowercase-names"}
 	err = project.Fetch(fetcher)
 	assert.Nil(t, err)
-	assert.False(t, project.CheckLicense())
+	assert.True(t, project.CheckLicense())
+}
+
+func TestRemoteProjectCheckLowercaseLicense(t *testing.T) {
+	project := &RemoteProject{FullName: "octokit/octokit.rb"}
+	fetcher := &FakeProjectFetcher{}
+	err := project.Fetch(fetcher)
+	assert.Nil(t, err)
+	assert.True(t, project.CheckLicense())
+
+	project = &RemoteProject{FullName: "projects/lowercase-names"}
+	err = project.Fetch(fetcher)
+	assert.Nil(t, err)
+	assert.True(t, project.CheckLowercaseLicense())
 }
 
 func TestRemoteProjectCheckBootstrap(t *testing.T) {

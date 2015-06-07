@@ -21,9 +21,41 @@ var readmeTests = []scenarios{
 	{"README.rst", true},
 	{"docs/README.rst", false},
 	{"docs/README.md", false},
+	{"Readme.md", false},
+	{"readme.md", false},
 }
 
 func TestLocalProjectFindsReadme(t *testing.T) {
+	for _, tt := range readmeTests {
+		setup := setupLocalProjectTest()
+		defer setup.Teardown()
+
+		if len(tt.path) > 0 {
+			setup.WriteFile(tt.path, "The README")
+		}
+
+		project := &LocalProject{Path: setup.Path}
+		actual := project.CheckReadme()
+
+		msg := fmt.Sprintf("Path: '%s', Errors: %d", tt.path, tt.result)
+		assert.Equal(t, tt.result, actual, msg)
+	}
+}
+
+var lowercaseReadmeTests = []scenarios{
+	{"", false},
+	{"README", false},
+	{"README.md", false},
+	{"README.rst", false},
+	{"docs/README.rst", false},
+	{"docs/README.md", false},
+	{"Readme.md", true},
+	{"readme.md", true},
+	{"docs/Readme.rst", false},
+	{"docs/Readme.md", false},
+}
+
+func TestLocalProjectFindsLowercaseReadme(t *testing.T) {
 	for _, tt := range readmeTests {
 		setup := setupLocalProjectTest()
 		defer setup.Teardown()
