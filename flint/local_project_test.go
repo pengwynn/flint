@@ -17,6 +17,7 @@ type scenarios struct {
 var readmeTests = []scenarios{
 	{"", false},
 	{"README", true},
+	{"readme", true},
 	{"README.md", true},
 	{"README.rst", true},
 	{"docs/README.rst", false},
@@ -43,6 +44,7 @@ func TestLocalProjectFindsReadme(t *testing.T) {
 var contributingTests = []scenarios{
 	{"", false},
 	{"CONTRIBUTING", true},
+	{"contributing", true},
 	{"CONTRIBUTING.md", true},
 	{"CONTRIBUTING.rst", true},
 	{"docs/CONTRIBUTING.rst", false},
@@ -69,6 +71,7 @@ func TestLocalProjectFindsContributing(t *testing.T) {
 var licenseTests = []scenarios{
 	{"", false},
 	{"LICENSE", true},
+	{"license", true},
 	{"LICENSE.md", true},
 	{"LICENSE.rst", true},
 	{"docs/LICENSE.rst", false},
