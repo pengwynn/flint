@@ -41,7 +41,7 @@ func TestRemoteProjectCheckReadme(t *testing.T) {
 	project = &RemoteProject{FullName: "projects/lowercase-names"}
 	err = project.Fetch(fetcher)
 	assert.Nil(t, err)
-	assert.False(t, project.CheckReadme())
+	assert.True(t, project.CheckReadme())
 }
 
 func TestRemoteProjectCheckContributing(t *testing.T) {
@@ -54,7 +54,7 @@ func TestRemoteProjectCheckContributing(t *testing.T) {
 	project = &RemoteProject{FullName: "projects/lowercase-names"}
 	err = project.Fetch(fetcher)
 	assert.Nil(t, err)
-	assert.False(t, project.CheckContributing())
+	assert.True(t, project.CheckContributing())
 }
 
 func TestRemoteProjectCheckLicense(t *testing.T) {
@@ -67,7 +67,7 @@ func TestRemoteProjectCheckLicense(t *testing.T) {
 	project = &RemoteProject{FullName: "projects/lowercase-names"}
 	err = project.Fetch(fetcher)
 	assert.Nil(t, err)
-	assert.False(t, project.CheckLicense())
+	assert.True(t, project.CheckLicense())
 }
 
 func TestRemoteProjectCheckBootstrap(t *testing.T) {
