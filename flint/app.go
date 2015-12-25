@@ -14,13 +14,13 @@ func NewApp() *cli.App {
 	app.Usage = "Check a project for common sources of contributor friction"
 	app.Version = "0.0.4"
 	app.Flags = []cli.Flag{
-		cli.BoolFlag{"skip-readme", "skip check for README", ""},
-		cli.BoolFlag{"skip-contributing", "skip check for contributing guide", ""},
-		cli.BoolFlag{"skip-license", "skip check for license", ""},
-		cli.BoolFlag{"skip-bootstrap", "skip check for bootstrap script", ""},
-		cli.BoolFlag{"skip-test-script", "skip check for test script", ""},
-		cli.BoolFlag{"skip-scripts", "skip check for all scripts", ""},
-		cli.BoolFlag{"no-color", "skip coloring the terminal output", ""},
+		cli.BoolFlag{"skip-readme", "skip check for README", "", nil},
+		cli.BoolFlag{"skip-contributing", "skip check for contributing guide", "", nil},
+		cli.BoolFlag{"skip-license", "skip check for license", "", nil},
+		cli.BoolFlag{"skip-bootstrap", "skip check for bootstrap script", "", nil},
+		cli.BoolFlag{"skip-test-script", "skip check for test script", "", nil},
+		cli.BoolFlag{"skip-scripts", "skip check for all scripts", "", nil},
+		cli.BoolFlag{"no-color", "skip coloring the terminal output", "", nil},
 		cli.StringFlag{
 			Name:  "github, g",
 			Value: "",
