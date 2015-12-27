@@ -69,10 +69,12 @@ func TestLocalProjectFindsContributing(t *testing.T) {
 var licenseTests = []scenarios{
 	{"", false},
 	{"LICENSE", true},
+	{"COPYING", true},
 	{"LICENSE.md", true},
 	{"LICENSE.rst", true},
 	{"docs/LICENSE.rst", false},
 	{"docs/LICENSE.md", false},
+	{"docs/COPYING", false},
 }
 
 func TestLocalProjectFindsLicense(t *testing.T) {
