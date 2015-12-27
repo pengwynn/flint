@@ -27,16 +27,13 @@ func (list *Summary) Severity() int {
 
 func (l *Summary) Print(out io.Writer, colored bool) {
 	info := func(a ...interface{}) { fmt.Fprintln(out, a...) }
-	warn := info
-	fail := info
-	success := info
+	warn := color.New(color.FgYellow).PrintlnFunc()
+	fail := color.New(color.FgRed).PrintlnFunc()
+	success := color.New(color.FgGreen).PrintlnFunc()
 
 	color.Output = out
-	if colored {
-		warn = color.New(color.FgYellow).PrintlnFunc()
-		fail = color.New(color.FgRed).PrintlnFunc()
-		success = color.New(color.FgGreen).PrintlnFunc()
-	}
+	color.NoColor = !colored
+
 	if len(l.Errors) == 0 {
 		message := "[OK] All is well!"
 		success(message)
