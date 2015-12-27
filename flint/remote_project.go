@@ -65,7 +65,7 @@ func (l *RemoteProject) CheckContributing() bool {
 }
 
 func (l *RemoteProject) CheckLicense() bool {
-	return l.searchPath(regexp.MustCompile(`LICENSE`))
+	return l.searchPath(regexp.MustCompile(`LICENSE|COPYING`))
 }
 
 func (l *RemoteProject) CheckBootstrap() bool {

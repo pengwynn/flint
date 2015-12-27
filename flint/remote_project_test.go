@@ -70,6 +70,14 @@ func TestRemoteProjectCheckLicense(t *testing.T) {
 	assert.False(t, project.CheckLicense())
 }
 
+func TestRemoteProjectCheckCopying(t *testing.T) {
+	project := &RemoteProject{FullName: "projects/copying"}
+	fetcher := &FakeProjectFetcher{}
+	err := project.Fetch(fetcher)
+	assert.Nil(t, err)
+	assert.True(t, project.CheckLicense())
+}
+
 func TestRemoteProjectCheckBootstrap(t *testing.T) {
 	project := &RemoteProject{FullName: "octokit/octokit.rb"}
 	fetcher := &FakeProjectFetcher{}
@@ -144,6 +152,14 @@ func (f *FakeProjectFetcher) FetchTree(nwo string) (paths []string, err error) {
 		}
 	case "projects/no-files":
 		paths = []string{}
+	case "projects/copying":
+		paths = []string{
+			"COPYING",
+			"contributing",
+			"readme",
+			"script/bootstrap",
+			"script/test",
+		}
 	}
 	return paths, nil
 }
