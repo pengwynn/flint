@@ -23,7 +23,7 @@ func (l *LocalProject) CheckContributing() bool {
 }
 
 func (l *LocalProject) CheckLicense() bool {
-	return l.searchPath("LICENSE*")
+	return l.searchPath("LICENSE*") || l.searchPath("COPYING*")
 }
 
 func (l *LocalProject) CheckBootstrap() bool {
