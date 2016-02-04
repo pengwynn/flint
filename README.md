@@ -4,7 +4,7 @@ Check your project for common sources of contributor friction.
 
 #### For the Non-Developer
 
-Flint checks if your project's folder contains files allowing contributors on the project to easily understand what the mission of the project is, how they can contribute, under what conditions can they use the project, and installing the project. 
+Flint checks if your project's folder contains files allowing contributors on the project to easily understand what the mission of the project is, how they can contribute, under what conditions can they use the project, and easy installation the project. 
 
 ### Install
 
