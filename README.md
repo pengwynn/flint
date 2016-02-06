@@ -2,6 +2,21 @@
 
 Check your project for common sources of contributor friction.
 
+### What to Use Flint for and When to Use It?
+
+Since it is so important, GitHub founder [Tom Preston-Werner][mojombo]
+suggests you [should write the README before you write a single line of
+code][RDD]. A well crafted README includes:
+
+- A description of problems your project solves.
+- The philosophy behind your project.
+- Basic usage and getting started instructions.
+- A list of comparable projects that inspired yours or would be suitable
+  alternatives.
+ 
+Use Flint to help ensure that each new project you create will be structured
+in contributor friendly way. 
+
 ### Install
 
 If you've got Go installed, you can install flint with Go's command line
@@ -74,24 +89,12 @@ Passing the `-h` flag will show full usage options:
        --token, -t          GitHub API access token [$FLINT_TOKEN]
        --help, -h           show help
        --version, -v        print the version
-
+ 
 ### Philosophy
 
 If you want people to use and contribute to your project, you need to start by
 answering their most basic questions. Flint is a command line script that will
 check your project for common answers to these questions.
-
-#### What is this?
-
-Since it is so important, GitHub founder [Tom Preston-Werner][mojombo]
-suggests you [should write the README before you write a single line of
-code][RDD]. A well crafted README includes:
-
-- A description of problems your project solves.
-- The philosophy behind your project.
-- Basic usage and getting started instructions.
-- A list of comparable projects that inspired yours or would be suitable
-  alternatives.
 
 #### How am I allowed to use it?
 
@@ -135,3 +138,4 @@ Copyright 2014 [Wynn Netherland][pengwynn].
 [choose]: http://choosealicense.com/
 [RDD]: http://tom.preston-werner.com/2010/08/23/readme-driven-development.html
 [releases]: https://github.com/pengwynn/flint/releases
+H
