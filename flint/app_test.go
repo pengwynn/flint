@@ -83,6 +83,10 @@ func (f *fakeGitHubFetcher) FetchTree(nwo string) ([]string, error) {
 	return []string{}, nil
 }
 
+func (f *fakeGitHubFetcher) FetchReleases(nwo string) ([]string, error) {
+	return []string{}, nil
+}
+
 func setupAppTest() {
 	_run = run
 	newGitHubFetcher = func(c *cli.Context) RemoteRepositoryFetcher {

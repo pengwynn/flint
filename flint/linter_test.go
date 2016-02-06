@@ -15,7 +15,7 @@ func TestLinterRequiresProject(t *testing.T) {
 
 func TestLinterReturnsSummary(t *testing.T) {
 	linter := &Linter{}
-	flags := &Flags{true, true, true, true, true} // Run all
+	flags := &Flags{true, true, true, true, true, true} // Run all
 	project := &FakeProject{Flags: flags}
 	summary, err := linter.Run(project, flags)
 	assert.Nil(t, err)
@@ -26,14 +26,14 @@ func TestLinterReturnsSummary(t *testing.T) {
 
 func TestLinterReportsErrors(t *testing.T) {
 	linter := &Linter{}
-	flags := &Flags{true, true, true, true, true} // Run all
-	results := &Flags{}                           // Return false for each check
+	flags := &Flags{true, true, true, true, true, true} // Run all
+	results := &Flags{}                                 // Return false for each check
 	project := &FakeProject{Flags: results}
 	assert.Equal(t, results.RunReadme, false)
 	summary, err := linter.Run(project, flags)
 	assert.Nil(t, err)
 	if assert.NotNil(t, summary) {
-		assert.Equal(t, 10, len(summary.Errors))
+		assert.Equal(t, 12, len(summary.Errors))
 	}
 }
 
@@ -51,6 +51,10 @@ func (p *FakeProject) CheckContributing() bool {
 
 func (p *FakeProject) CheckLicense() bool {
 	return p.RunLicense
+}
+
+func (p *FakeProject) CheckChangelog() bool {
+	return p.RunChangelog
 }
 
 func (p *FakeProject) CheckBootstrap() bool {

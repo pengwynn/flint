@@ -60,6 +60,36 @@ func (g *GitHubFetcher) FetchTree(nwo string) (paths []string, err error) {
 	return
 }
 
+func (g *GitHubFetcher) FetchReleases(nwo string) (releases []string, err error) {
+	if g.Client == nil {
+		return nil, errors.New("GitHub client required")
+	}
+
+	owner, name, err := g.ParseFullName(nwo)
+	if err != nil {
+		return nil, err
+	}
+	url, err := octokit.ReleasesURL.Expand(octokit.M{
+		"owner": owner,
+		"repo":  name,
+	})
+	if err != nil {
+		return nil, err
+	}
+	items, result := g.Releases(url).All()
+	if result.HasError() {
+		return nil, result.Err
+	}
+
+	for _, release := range items {
+		if body := release.Body; len(body) > 0 {
+			releases = append(releases, release.TagName)
+		}
+	}
+
+	return
+}
+
 func (g *GitHubFetcher) ParseFullName(nwo string) (owner, name string, err error) {
 	parts := strings.Split(nwo, "/")
 	if len(parts) != 2 {

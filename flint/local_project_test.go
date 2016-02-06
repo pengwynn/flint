@@ -94,6 +94,32 @@ func TestLocalProjectFindsLicense(t *testing.T) {
 	}
 }
 
+var changelogTests = []scenarios{
+	{"", false},
+	{"CHANGELOG", true},
+	{"CHANGELOG.md", true},
+	{"CHANGELOG.rst", true},
+	{"docs/CHANGELOG.rst", false},
+	{"docs/CHANGELOG.md", false},
+}
+
+func TestLocalProjectFindsChangelog(t *testing.T) {
+	for _, tt := range changelogTests {
+		setup := setupLocalProjectTest()
+		defer setup.Teardown()
+
+		if len(tt.path) > 0 {
+			setup.WriteFile(tt.path, "The CHANGELOG")
+		}
+
+		project := &LocalProject{Path: setup.Path}
+		actual := project.CheckChangelog()
+
+		msg := fmt.Sprintf("Path: '%s', Errors: %d", tt.path, tt.result)
+		assert.Equal(t, tt.result, actual, msg)
+	}
+}
+
 var bootstrapTests = []scenarios{
 	{"", false},
 	{"script/bootstrap", true},

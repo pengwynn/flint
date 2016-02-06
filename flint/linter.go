@@ -10,12 +10,14 @@ type Flags struct {
 	RunLicense      bool
 	RunBootstrap    bool
 	RunTestScript   bool
+	RunChangelog    bool
 }
 
 type Project interface {
 	CheckReadme() bool
 	CheckContributing() bool
 	CheckLicense() bool
+	CheckChangelog() bool
 	CheckBootstrap() bool
 	CheckTestScript() bool
 }
@@ -40,6 +42,10 @@ func (l *Linter) Run(p Project, flags *Flags) (summary *Summary, err error) {
 	if flags.RunLicense && !p.CheckLicense() {
 		summary.AppendError(LicenseNotFoundError)
 		summary.AppendError(LicenseNotFoundInfo)
+	}
+	if flags.RunChangelog && !p.CheckChangelog() {
+		summary.AppendError(ChangelogNotFoundError)
+		summary.AppendError(ChangelogNotFoundInfo)
 	}
 	if flags.RunBootstrap && !p.CheckBootstrap() {
 		summary.AppendError(BootstrapNotFoundError)
