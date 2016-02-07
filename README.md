@@ -14,8 +14,7 @@ code][RDD]. A well crafted README includes:
 - A list of comparable projects that inspired yours or would be suitable
   alternatives.
  
-In addition to a README, you should include basic files needed for collaborators to undestand and use your project. Use Flint to help ensure that each new project you create will be structured
-in contributor friendly way.
+In addition to a README, you should include basic files that will help collaborators understand and use your project. Using Flint will help ensure these files are in place for every new project you create.
 
 ### Install
 
