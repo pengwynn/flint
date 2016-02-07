@@ -2,6 +2,10 @@
 
 Check your project for common sources of contributor friction.
 
+#### For the Non-Developer
+
+Flint checks if your project's folder contains the proper files and structure to allow potential contributors to understand: 1) the project's goals, 2) how to contribute, 3) usage guidelines, and 4) how to install the project.
+
 ### Install
 
 If you've got Go installed, you can install flint with Go's command line
