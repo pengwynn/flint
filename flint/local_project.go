@@ -37,3 +37,7 @@ func (l *LocalProject) CheckBootstrap() bool {
 func (l *LocalProject) CheckTestScript() bool {
 	return l.searchPath("script/test")
 }
+
+func (l *LocalProject) CheckCodeOfConduct() bool {
+	return l.searchPath("CODE_OF_CONDUCT*")
+}

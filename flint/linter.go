@@ -5,12 +5,13 @@ import (
 )
 
 type Flags struct {
-	RunReadme       bool
-	RunContributing bool
-	RunLicense      bool
-	RunBootstrap    bool
-	RunTestScript   bool
-	RunChangelog    bool
+	RunReadme        bool
+	RunContributing  bool
+	RunLicense       bool
+	RunBootstrap     bool
+	RunTestScript    bool
+	RunChangelog     bool
+	RunCodeOfConduct bool
 }
 
 type Project interface {
@@ -20,6 +21,7 @@ type Project interface {
 	CheckChangelog() bool
 	CheckBootstrap() bool
 	CheckTestScript() bool
+	CheckCodeOfConduct() bool
 }
 
 type Linter struct{}
@@ -54,6 +56,10 @@ func (l *Linter) Run(p Project, flags *Flags) (summary *Summary, err error) {
 	if flags.RunTestScript && !p.CheckTestScript() {
 		summary.AppendError(TestScriptNotFoundError)
 		summary.AppendError(TestScriptNotFoundInfo)
+	}
+	if flags.RunCodeOfConduct && !p.CheckCodeOfConduct() {
+		summary.AppendError(CodeOfConductNotFoundError)
+		summary.AppendError(CodeOfConductNotFoundInfo)
 	}
 
 	return summary, nil

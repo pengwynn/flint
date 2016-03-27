@@ -166,6 +166,29 @@ func TestLocalProjectFindsTestScript(t *testing.T) {
 	}
 }
 
+var CodeOfConductTests = []scenarios{
+	{"", false},
+	{"CODE_OF_CONDUCT", true},
+	{"CODE_OF_CONDUCT.md", true},
+}
+
+func TestLocalProjectFindsCodeOfConduct(t *testing.T) {
+	for _, tt := range CodeOfConductTests {
+		setup := setupLocalProjectTest()
+		defer setup.Teardown()
+
+		if len(tt.path) > 0 {
+			setup.WriteFile(tt.path, "#!/bin/sh")
+		}
+
+		project := &LocalProject{Path: setup.Path}
+		actual := project.CheckCodeOfConduct()
+
+		msg := fmt.Sprintf("Path: '%s', Errors: %d", tt.path, tt.result)
+		assert.Equal(t, tt.result, actual, msg)
+	}
+}
+
 func check(err error) {
 	if err != nil {
 		panic(err)

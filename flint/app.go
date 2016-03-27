@@ -46,6 +46,10 @@ func NewApp() *cli.App {
 			Name:  "skip-changelog",
 			Usage: "skip check for changelog",
 		},
+		cli.BoolFlag{
+			Name:  "skip-code-of-conduct",
+			Usage: "skip check for code of conduct",
+		},
 		cli.StringFlag{
 			Name:  "github, g",
 			Value: "",
@@ -118,12 +122,13 @@ func newFlagsFromContext(c *cli.Context) *Flags {
 	}
 
 	flags := &Flags{
-		RunReadme:       !c.Bool("skip-readme"),
-		RunContributing: !c.Bool("skip-contributing"),
-		RunLicense:      !c.Bool("skip-license"),
-		RunBootstrap:    runBootstrap,
-		RunTestScript:   runTestScript,
-		RunChangelog:    !c.Bool("skip-changelog"),
+		RunReadme:        !c.Bool("skip-readme"),
+		RunContributing:  !c.Bool("skip-contributing"),
+		RunLicense:       !c.Bool("skip-license"),
+		RunBootstrap:     runBootstrap,
+		RunTestScript:    runTestScript,
+		RunChangelog:     !c.Bool("skip-changelog"),
+		RunCodeOfConduct: !c.Bool("skip-code-of-conduct"),
 	}
 	return flags
 }
