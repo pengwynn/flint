@@ -80,3 +80,12 @@ var TestScriptNotFoundInfo = &LintError{
 	0,
 	"Make it easy to run the test suite regardless of project type. http://bit.ly/JZjVL6",
 }
+
+var CodeOfConductNotFoundError = &LintError{
+	1,
+	"CODE_OF_CONDUCT not found",
+}
+var CodeOfConductNotFoundInfo = &LintError{
+	0,
+	"Let people know what to expect when they participate in the project",
+}

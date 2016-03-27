@@ -85,3 +85,7 @@ func (l *RemoteProject) CheckBootstrap() bool {
 func (l *RemoteProject) CheckTestScript() bool {
 	return l.searchPath(regexp.MustCompile(`script/test`))
 }
+
+func (l *RemoteProject) CheckCodeOfConduct() bool {
+	return l.searchPath(regexp.MustCompile(`CODE_OF_CONDUCT`))
+}
