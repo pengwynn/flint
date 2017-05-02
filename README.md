@@ -13,10 +13,15 @@ interface:
 
     go get github.com/pengwynn/flint
 
-You can test your installation by running `flint --version` from any folder.
-
 If you don't have Go installed, you can download a [prebuilt binary for your
 platform][releases], optionally renaming it to "flint" for convenience.
+
+If you are on macOS and are using [Homebrew] as package manger you can install
+flint with:
+
+    brew install flint-checker
+
+You can test your installation by running `flint --version` from any folder.
 
 ### Usage
 
@@ -139,3 +144,4 @@ Copyright 2014 [Wynn Netherland][pengwynn].
 [choose]: http://choosealicense.com/
 [RDD]: http://tom.preston-werner.com/2010/08/23/readme-driven-development.html
 [releases]: https://github.com/pengwynn/flint/releases
+[Homebrew]: https://brew.sh
