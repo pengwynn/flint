@@ -2,7 +2,7 @@ package flint
 
 import (
 	"fmt"
-	"github.com/octokit/go-octokit/octokit"
+	"github.com/google/go-github/github"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"net/http"
@@ -12,12 +12,6 @@ import (
 	"path/filepath"
 	"testing"
 )
-
-func TestNewGitHubFetcherWithToken(t *testing.T) {
-	fetcher := NewGitHubFetcherWithToken("foo")
-	assert.IsType(t, &GitHubFetcher{}, fetcher)
-	assert.Equal(t, "token foo", fetcher.AuthMethod.String())
-}
 
 func TestGitHubFetcherRequiresClientForFetchRepository(t *testing.T) {
 	fetcher := &GitHubFetcher{}
@@ -151,7 +145,7 @@ func TestGitHubFetcher_ParseFullName(t *testing.T) {
 
 var (
 	mux    *http.ServeMux
-	client *octokit.Client
+	client *github.Client
 	server *httptest.Server
 )
 
@@ -188,22 +182,10 @@ func setupGitHubFetcherTest() {
 	// test server
 	mux = http.NewServeMux()
 	server = httptest.NewServer(mux)
-	serverURL, _ := url.Parse(server.URL)
 
-	httpClient := http.Client{
-		Transport: TestTransport{
-			RoundTripper: http.DefaultTransport,
-			overrideURL:  serverURL,
-		},
-	}
-
-	// octokit client configured to use test server
-	client = octokit.NewClientWith(
-		gitHubAPIURL,
-		userAgent,
-		octokit.TokenAuth{AccessToken: "token"},
-		&httpClient,
-	)
+	client = github.NewClient(nil)
+	url, _ := url.Parse(server.URL)
+	client.BaseURL = url
 }
 
 // teardown closes the test HTTP server.
