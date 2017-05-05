@@ -7,5 +7,6 @@ matrix:
   allow_failtures:
     go: master
 install:
-- script/build
+  - go get -v github.com/Masterminds/glide
+  - script/bootstrap
 script: script/test
