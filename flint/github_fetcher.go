@@ -1,14 +1,17 @@
 package flint
 
 import (
+	"context"
 	"errors"
 	"fmt"
-	"github.com/octokit/go-octokit/octokit"
 	"strings"
+
+	"github.com/google/go-github/github"
+	"golang.org/x/oauth2"
 )
 
 type GitHubFetcher struct {
-	*octokit.Client
+	*github.Client
 }
 
 func (g *GitHubFetcher) FetchRepository(nwo string) (repo *Repository, err error) {
@@ -20,12 +23,14 @@ func (g *GitHubFetcher) FetchRepository(nwo string) (repo *Repository, err error
 	if err != nil {
 		return nil, err
 	}
-	info, result := g.Repositories().One(nil, octokit.M{"owner": owner, "repo": name})
-	if result.HasError() {
-		return nil, result.Err
-	}
 
-	repo = &Repository{info.Description, info.Homepage}
+	ctx := context.Background()
+	info, _, err := g.Client.Repositories.Get(ctx, owner, name)
+
+	if err != nil {
+		return nil, err
+	}
+	repo = &Repository{*info.Description, *info.Homepage}
 
 	return
 }
@@ -39,22 +44,15 @@ func (g *GitHubFetcher) FetchTree(nwo string) (paths []string, err error) {
 	if err != nil {
 		return nil, err
 	}
-	url, err := octokit.GitTreesURL.Expand(octokit.M{
-		"owner":     owner,
-		"repo":      name,
-		"sha":       "master",
-		"recursive": 1,
-	})
+
+	ctx := context.Background()
+	tree, _, err := g.Client.Git.GetTree(ctx, owner, name, "master", true)
 	if err != nil {
 		return nil, err
 	}
-	tree, result := g.GitTrees(url).One()
-	if result.HasError() {
-		return nil, result.Err
-	}
 
-	for _, entry := range tree.Tree {
-		paths = append(paths, entry.Path)
+	for _, entry := range tree.Entries {
+		paths = append(paths, *entry.Path)
 	}
 
 	return
@@ -69,21 +67,17 @@ func (g *GitHubFetcher) FetchReleases(nwo string) (releases []string, err error)
 	if err != nil {
 		return nil, err
 	}
-	url, err := octokit.ReleasesURL.Expand(octokit.M{
-		"owner": owner,
-		"repo":  name,
-	})
+
+	ctx := context.Background()
+	items, _, err := g.Client.Repositories.ListReleases(ctx, owner, name, nil)
+
 	if err != nil {
 		return nil, err
 	}
-	items, result := g.Releases(url).All()
-	if result.HasError() {
-		return nil, result.Err
-	}
 
 	for _, release := range items {
-		if body := release.Body; len(body) > 0 {
-			releases = append(releases, release.TagName)
+		if body := *release.Body; len(body) > 0 {
+			releases = append(releases, *release.TagName)
 		}
 	}
 
@@ -103,13 +97,16 @@ func (g *GitHubFetcher) ParseFullName(nwo string) (owner, name string, err error
 }
 
 func NewGitHubFetcher() *GitHubFetcher {
-	client := octokit.NewClient(nil)
+	client := github.NewClient(nil)
 
 	return &GitHubFetcher{client}
 }
 
 func NewGitHubFetcherWithToken(token string) *GitHubFetcher {
-	client := octokit.NewClient(&octokit.TokenAuth{AccessToken: token})
+	tc := oauth2.NewClient(context.Background(), oauth2.StaticTokenSource(
+		&oauth2.Token{AccessToken: token},
+	))
+	client := github.NewClient(tc)
 
 	return &GitHubFetcher{client}
 }

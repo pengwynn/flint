@@ -1,5 +1,4 @@
 #!/bin/bash
 
-script/bootstrap
 go fmt
-go test -v ./...
+go test -v ./flint/...

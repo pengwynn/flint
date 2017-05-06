@@ -2,5 +2,4 @@
 
 set -e
 echo "Installing dependencies"
-go get ./...
-go get github.com/stretchr/testify
+glide install
