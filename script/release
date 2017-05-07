@@ -7,7 +7,7 @@ set -e
 
 script/test
 
-version="$(script/build | grep 'flint version ' | awk '{print $4}')"
+version="$(go run flint.go --version | grep 'flint version ' | awk '{print $3}')"
 [ -n "$version" ] || exit 1
 
 echo $version
