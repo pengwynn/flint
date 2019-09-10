@@ -1,6 +1,6 @@
 package: github.com/pengwynn/flint
 import:
-- package: github.com/codegangsta/cli
+- package: github.com/urfave/cli
   version: ^1.19.1
 - package: github.com/fatih/color
   version: ^1.4.1

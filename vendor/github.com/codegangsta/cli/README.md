@@ -10,7 +10,7 @@ cli
 [![altsrc coverage](https://gocover.io/_badge/github.com/urfave/cli/altsrc?0 "altsrc coverage")](http://gocover.io/github.com/urfave/cli/altsrc)
 
 **Notice:** This is the library formerly known as
-`github.com/codegangsta/cli` -- Github will automatically redirect requests
+`github.com/urfave/cli` -- Github will automatically redirect requests
 to this repository, but we recommend updating your references for clarity.
 
 cli is a simple, fast, and fun package for building command line apps in Go. The

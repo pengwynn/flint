@@ -1,7 +1,7 @@
 package flint
 
 import (
-	"github.com/codegangsta/cli"
+	"github.com/urfave/cli"
 
 	"fmt"
 	"os"

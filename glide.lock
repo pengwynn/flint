@@ -1,7 +1,7 @@
 hash: b59487868bb8e8645aaf28748b8bb7c527b9e18f8f6ad2ede5f4eb8df491645c
 updated: 2017-05-06T17:12:05.176777297-05:00
 imports:
-- name: github.com/codegangsta/cli
+- name: github.com/urfave/cli
   version: 0bdeddeeb0f650497d603c4ad7b20cfe685682f6
 - name: github.com/fatih/color
   version: 9131ab34cf20d2f6d83fdc67168a5430d1c7dc23
