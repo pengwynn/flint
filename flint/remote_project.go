@@ -3,6 +3,7 @@ package flint
 import (
 	"errors"
 	"regexp"
+	"strings"
 )
 
 type Repository struct {
@@ -55,7 +56,7 @@ func (r *RemoteProject) Fetch(fetcher RemoteRepositoryFetcher) error {
 
 func (l *RemoteProject) searchPath(re *regexp.Regexp) bool {
 	for _, path := range l.paths {
-		if re.MatchString(path) {
+		if re.MatchString(strings.ToLower(path)) {
 			return true
 		}
 	}
@@ -63,19 +64,19 @@ func (l *RemoteProject) searchPath(re *regexp.Regexp) bool {
 }
 
 func (l *RemoteProject) CheckReadme() bool {
-	return l.searchPath(regexp.MustCompile(`README`))
+	return l.searchPath(regexp.MustCompile(`readme`))
 }
 
 func (l *RemoteProject) CheckContributing() bool {
-	return l.searchPath(regexp.MustCompile(`CONTRIBUTING`))
+	return l.searchPath(regexp.MustCompile(`contributing`))
 }
 
 func (l *RemoteProject) CheckLicense() bool {
-	return l.searchPath(regexp.MustCompile(`LICENSE|COPYING`))
+	return l.searchPath(regexp.MustCompile(`license|copying`))
 }
 
 func (l *RemoteProject) CheckChangelog() bool {
-	return l.searchPath(regexp.MustCompile(`CHANGELOG`)) || len(l.releases) > 1
+	return l.searchPath(regexp.MustCompile(`changelog`)) || len(l.releases) > 1
 }
 
 func (l *RemoteProject) CheckBootstrap() bool {
@@ -87,5 +88,5 @@ func (l *RemoteProject) CheckTestScript() bool {
 }
 
 func (l *RemoteProject) CheckCodeOfConduct() bool {
-	return l.searchPath(regexp.MustCompile(`CODE_OF_CONDUCT`))
+	return l.searchPath(regexp.MustCompile(`code_of_conduct`))
 }
