@@ -16,7 +16,7 @@ interface:
 If you don't have Go installed, you can download a [prebuilt binary for your
 platform][releases], optionally renaming it to "flint" for convenience.
 
-If you are on macOS and are using [Homebrew] as package manger you can install
+If you are on macOS and are using [Homebrew] as package manager you can install
 flint with:
 
     brew install flint-checker
