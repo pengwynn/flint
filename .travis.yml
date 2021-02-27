@@ -1,13 +1,9 @@
 sudo: false
 language: go
 go:
-  - 1.7
-  - 1.8
+  - 1.16
   - master
 matrix:
-  allow_failtures:
+  allow_failures:
     go: master
-install:
-  - go get -v github.com/Masterminds/glide
-  - script/bootstrap
 script: script/test
