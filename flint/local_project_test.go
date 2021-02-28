@@ -35,7 +35,7 @@ func TestLocalProjectFindsReadme(t *testing.T) {
 		project := &LocalProject{Path: setup.Path}
 		actual := project.CheckReadme()
 
-		msg := fmt.Sprintf("Path: '%s', Errors: %d", tt.path, tt.result)
+		msg := fmt.Sprintf("Path: '%s', Errors: %t", tt.path, tt.result)
 		assert.Equal(t, tt.result, actual, msg)
 	}
 }
@@ -61,7 +61,7 @@ func TestLocalProjectFindsContributing(t *testing.T) {
 		project := &LocalProject{Path: setup.Path}
 		actual := project.CheckContributing()
 
-		msg := fmt.Sprintf("Path: '%s', Errors: %d", tt.path, tt.result)
+		msg := fmt.Sprintf("Path: '%s', Errors: %t", tt.path, tt.result)
 		assert.Equal(t, tt.result, actual, msg)
 	}
 }
@@ -89,7 +89,7 @@ func TestLocalProjectFindsLicense(t *testing.T) {
 		project := &LocalProject{Path: setup.Path}
 		actual := project.CheckLicense()
 
-		msg := fmt.Sprintf("Path: '%s', Errors: %d", tt.path, tt.result)
+		msg := fmt.Sprintf("Path: '%s', Errors: %t", tt.path, tt.result)
 		assert.Equal(t, tt.result, actual, msg)
 	}
 }
@@ -115,7 +115,7 @@ func TestLocalProjectFindsChangelog(t *testing.T) {
 		project := &LocalProject{Path: setup.Path}
 		actual := project.CheckChangelog()
 
-		msg := fmt.Sprintf("Path: '%s', Errors: %d", tt.path, tt.result)
+		msg := fmt.Sprintf("Path: '%s', Errors: %t", tt.path, tt.result)
 		assert.Equal(t, tt.result, actual, msg)
 	}
 }
@@ -138,7 +138,7 @@ func TestLocalProjectFindsBootstrap(t *testing.T) {
 		project := &LocalProject{Path: setup.Path}
 		actual := project.CheckBootstrap()
 
-		msg := fmt.Sprintf("Path: '%s', Errors: %d", tt.path, tt.result)
+		msg := fmt.Sprintf("Path: '%s', Errors: %t", tt.path, tt.result)
 		assert.Equal(t, tt.result, actual, msg)
 	}
 }
@@ -161,7 +161,7 @@ func TestLocalProjectFindsTestScript(t *testing.T) {
 		project := &LocalProject{Path: setup.Path}
 		actual := project.CheckTestScript()
 
-		msg := fmt.Sprintf("Path: '%s', Errors: %d", tt.path, tt.result)
+		msg := fmt.Sprintf("Path: '%s', Errors: %t", tt.path, tt.result)
 		assert.Equal(t, tt.result, actual, msg)
 	}
 }
@@ -184,7 +184,7 @@ func TestLocalProjectFindsCodeOfConduct(t *testing.T) {
 		project := &LocalProject{Path: setup.Path}
 		actual := project.CheckCodeOfConduct()
 
-		msg := fmt.Sprintf("Path: '%s', Errors: %d", tt.path, tt.result)
+		msg := fmt.Sprintf("Path: '%s', Errors: %t", tt.path, tt.result)
 		assert.Equal(t, tt.result, actual, msg)
 	}
 }

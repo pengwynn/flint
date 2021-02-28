@@ -1,5 +1,0 @@
-#!/bin/bash
-
-set -e
-echo "Installing dependencies"
-glide install
