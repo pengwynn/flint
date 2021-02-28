@@ -14,9 +14,10 @@ require (
 	github.com/mitchellh/gox v0.3.0
 	github.com/mitchellh/iochan v0.0.0-20150529224432-87b45ffd0e95
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/stretchr/testify v1.1.4
-	golang.org/x/net v0.0.0-20170503120255-feeb485667d1
+	github.com/stretchr/testify v1.4.0
+	golang.org/x/net v0.0.0-20201021035429-f5854403a974
 	golang.org/x/oauth2 v0.0.0-20170412232759-a6bd8cefa181
-	golang.org/x/sys v0.0.0-20170213225739-e24f485414ae
+	golang.org/x/sys v0.0.0-20210124154548-22da62e12c0c
+	golang.org/x/tools/gopls v0.6.6 // indirect
 	google.golang.org/appengine v1.0.1-0.20170410194355-170382fa85b1
 )
